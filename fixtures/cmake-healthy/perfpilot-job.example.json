@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "repository": {
+    "url": "https://example.invalid/perfpilot/cmake-healthy.git",
+    "commit": "1111111111111111111111111111111111111111",
+    "dirty": false
+  },
+  "recipe": {
+    "configure": ["cmake", "-S", ".", "-B", "build", "-DCMAKE_BUILD_TYPE=Release"],
+    "build": ["cmake", "--build", "build", "--parallel"],
+    "test": ["ctest", "--test-dir", "build", "--output-on-failure"],
+    "benchmark": ["./build/integer_sum_benchmark"]
+  },
+  "profile": {
+    "backend": "instrumented_json",
+    "command": ["./build/integer_sum_benchmark", "--profile-json"],
+    "duration_seconds": 5,
+    "maximum_hotspots": 10
+  },
+  "proposal": {
+    "provider": "recorded",
+    "model": "fixture-recording",
+    "maximum_hotspots": 1,
+    "maximum_candidates_per_hotspot": 3,
+    "maximum_context_bytes": 40000,
+    "source_window_lines": 80
+  },
+  "benchmark_name": "integer_sum",
+  "benchmark_unit": "nanoseconds",
+  "lower_is_better": true,
+  "statistical_policy": {
+    "design": "randomized_paired_blocks",
+    "test": "paired_permutation",
+    "alpha": 0.01,
+    "multiple_testing_correction": "holm",
+    "confidence_level": 0.99,
+    "bootstrap_resamples": 10000,
+    "minimum_pairs": 15,
+    "maximum_pairs": 50,
+    "minimum_effect_fraction": 0.05,
+    "warmup_iterations": 5,
+    "random_seed": 20261001
+  }
+}
