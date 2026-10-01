@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "suite_id": "perfbench-cpp-cmake-v1",
+  "observations": [
+    {"case_id": "pb-001", "state": "not_run", "hotspot_identified": false, "valid_candidate": false, "equivalent_fix": null, "verified_speedup": false, "review_ready": false, "evidence_bundle": null, "notes": "Predeclared only; no product run performed."},
+    {"case_id": "pb-002", "state": "not_run", "hotspot_identified": false, "valid_candidate": false, "equivalent_fix": null, "verified_speedup": false, "review_ready": false, "evidence_bundle": null, "notes": "Predeclared only; no product run performed."},
+    {"case_id": "pb-003", "state": "not_run", "hotspot_identified": false, "valid_candidate": false, "equivalent_fix": null, "verified_speedup": false, "review_ready": false, "evidence_bundle": null, "notes": "Predeclared only; no product run performed."},
+    {"case_id": "pb-004", "state": "not_run", "hotspot_identified": false, "valid_candidate": false, "equivalent_fix": null, "verified_speedup": false, "review_ready": false, "evidence_bundle": null, "notes": "Predeclared only; no product run performed."},
+    {"case_id": "pb-005", "state": "not_run", "hotspot_identified": false, "valid_candidate": false, "equivalent_fix": null, "verified_speedup": false, "review_ready": false, "evidence_bundle": null, "notes": "Predeclared only; no product run performed."},
+    {"case_id": "pb-006", "state": "not_run", "hotspot_identified": false, "valid_candidate": false, "equivalent_fix": null, "verified_speedup": false, "review_ready": false, "evidence_bundle": null, "notes": "Predeclared only; no product run performed."},
+    {"case_id": "pb-007", "state": "not_run", "hotspot_identified": false, "valid_candidate": false, "equivalent_fix": null, "verified_speedup": false, "review_ready": false, "evidence_bundle": null, "notes": "Predeclared only; no product run performed."},
+    {"case_id": "pb-008", "state": "not_run", "hotspot_identified": false, "valid_candidate": false, "equivalent_fix": null, "verified_speedup": false, "review_ready": false, "evidence_bundle": null, "notes": "Predeclared only; no product run performed."}
+  ]
+}

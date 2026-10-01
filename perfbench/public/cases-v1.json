@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0.0",
+  "suite_id": "perfbench-cpp-cmake-v1",
+  "selection_rule": "Eight merged runtime-performance changes in public C++ repositories with CMake support, an immutable pre-fix parent commit, tests, and repository benchmark code or a documented benchmark path; selected before any PerfPilot run and spanning formatting, parsing, test-framework, logging, and serialization workloads.",
+  "cases": [
+    {
+      "case_id": "pb-001",
+      "repository_url": "https://github.com/fmtlib/fmt",
+      "baseline_commit": "2520f410c82e7e7b630f39a6d9164e4bcbc029cd",
+      "language": "cpp",
+      "build_system": "cmake",
+      "category": "formatting-copy-path",
+      "readiness": "curated_unrun",
+      "job_path": null,
+      "predeclared_at": "2026-10-01T00:00:00Z",
+      "limitations": ["Historical public change may be present in model training data.", "Build and benchmark recipe has not been validated on the target Linux runner."]
+    },
+    {
+      "case_id": "pb-002",
+      "repository_url": "https://github.com/simdjson/simdjson",
+      "baseline_commit": "6d7c77ddc10c57a6fa13828244415c9c666bf0b5",
+      "language": "cpp",
+      "build_system": "cmake",
+      "category": "json-numeric-access",
+      "readiness": "curated_unrun",
+      "job_path": null,
+      "predeclared_at": "2026-10-01T00:00:00Z",
+      "limitations": ["Historical public change may be present in model training data.", "SIMD results are architecture-sensitive; no target Linux recipe has been validated."]
+    },
+    {
+      "case_id": "pb-003",
+      "repository_url": "https://github.com/simdjson/simdjson",
+      "baseline_commit": "326c175dcb07f1bc0c2adc55d8efe19fed8f9ea6",
+      "language": "cpp",
+      "build_system": "cmake",
+      "category": "json-type-dispatch",
+      "readiness": "curated_unrun",
+      "job_path": null,
+      "predeclared_at": "2026-10-01T00:00:00Z",
+      "limitations": ["Historical public change may be present in model training data.", "SIMD results are architecture-sensitive; no target Linux recipe has been validated."]
+    },
+    {
+      "case_id": "pb-004",
+      "repository_url": "https://github.com/catchorg/Catch2",
+      "baseline_commit": "017a63da62ba7ffce1e1b005e6adc846412c575b",
+      "language": "cpp",
+      "build_system": "cmake",
+      "category": "test-assertion-bookkeeping",
+      "readiness": "curated_unrun",
+      "job_path": null,
+      "predeclared_at": "2026-10-01T00:00:00Z",
+      "limitations": ["Historical public change may be present in model training data.", "Old dependency/toolchain compatibility and a target benchmark recipe remain unvalidated."]
+    },
+    {
+      "case_id": "pb-005",
+      "repository_url": "https://github.com/catchorg/Catch2",
+      "baseline_commit": "502da4b38d059fdaa49f6e58486ae512122ef313",
+      "language": "cpp",
+      "build_system": "cmake",
+      "category": "test-assertion-handler",
+      "readiness": "curated_unrun",
+      "job_path": null,
+      "predeclared_at": "2026-10-01T00:00:00Z",
+      "limitations": ["Historical public change may be present in model training data.", "Old dependency/toolchain compatibility and a target benchmark recipe remain unvalidated."]
+    },
+    {
+      "case_id": "pb-006",
+      "repository_url": "https://github.com/catchorg/Catch2",
+      "baseline_commit": "b0c379f62122c95e7494fd6349b3804d58906793",
+      "language": "cpp",
+      "build_system": "cmake",
+      "category": "test-context-string-path",
+      "readiness": "curated_unrun",
+      "job_path": null,
+      "predeclared_at": "2026-10-01T00:00:00Z",
+      "limitations": ["Historical public change may be present in model training data.", "Old dependency/toolchain compatibility and a target benchmark recipe remain unvalidated."]
+    },
+    {
+      "case_id": "pb-007",
+      "repository_url": "https://github.com/gabime/spdlog",
+      "baseline_commit": "083d6c0d2f20adde6b3920247da1e7cf2cbace37",
+      "language": "cpp",
+      "build_system": "cmake",
+      "category": "logging-stdout-sink",
+      "readiness": "curated_unrun",
+      "job_path": null,
+      "predeclared_at": "2026-10-01T00:00:00Z",
+      "limitations": ["Historical public change may be present in model training data.", "Console I/O measurements require a controlled sink and have not been validated on Linux."]
+    },
+    {
+      "case_id": "pb-008",
+      "repository_url": "https://github.com/nlohmann/json",
+      "baseline_commit": "29a03f465e244beacc124c58ff73c95ea22cae6b",
+      "language": "cpp",
+      "build_system": "cmake",
+      "category": "json-integer-serialization",
+      "readiness": "curated_unrun",
+      "job_path": null,
+      "predeclared_at": "2026-10-01T00:00:00Z",
+      "limitations": ["Historical public change may be present in model training data.", "Old dependency/toolchain compatibility and benchmark recipe remain unvalidated on Linux."]
+    }
+  ]
+}
