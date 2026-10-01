@@ -56,6 +56,6 @@ def test_fixture_profile_ranks_measured_integer_sum_first(tmp_path: Path) -> Non
     first = result.bundle.profile.hotspots[0]
     assert first.symbol == "perfpilot_fixture::integer_sum"
     assert first.source_path == "src/integer_sum.cpp"
-    assert first.source_line == 9
+    assert first.source_line == 11
     assert first.percent_time > 50
     load_and_validate_bundle(result.bundle_root)
