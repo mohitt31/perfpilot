@@ -1,7 +1,7 @@
 # Metrics ledger
 
-This file distinguishes definitions from observations. No Phase 1 product or design-partner run has
-occurred yet, so all outcome values are **not measured**. The controlled fixture and all unit tests
+This file distinguishes definitions from observations. One real-repository run has occurred (below); no design-partner run has occurred yet. Every other
+outcome value is **not measured**. The controlled fixture and all unit tests
 are engineering validation and are excluded. Counts will be derived from validated run manifests;
 costs will be derived from provider receipts and recorded compute duration. Estimates must never be
 mixed with observations.
@@ -10,10 +10,10 @@ mixed with observations.
 
 | Metric | Value | Evidence |
 |---|---:|---|
-| Repositories attempted | Not measured | No product runs yet |
-| Repositories successfully built | Not measured | No product runs yet |
-| Baseline test suites passed | Not measured | No product runs yet |
-| Benchmarks reproduced | Not measured | No product runs yet |
+| Repositories attempted | 1 | covfie upstream 98eb03b, run 20261001T110503Z-672c897d |
+| Repositories successfully built | 1 | Release build, gcc 13, Linux x86-64 container |
+| Baseline test suites passed | 1 | ctest: 146/146 passed |
+| Benchmarks reproduced | 0 of 1 | benchmark_cpu aborts at registration (see note below) |
 | Repositories profiled | Not measured | No product runs yet |
 | Candidates generated | Not measured | No product runs yet |
 | Candidates compiled | Not measured | No product runs yet |
@@ -79,3 +79,19 @@ favorable “hit rate.” Potential training-data contamination is a limitation 
 The score format represents a zero denominator as `null`, not zero percent. Catalog size is never the
 denominator for a downstream stage that could not be reached, but unrun cases and setup failures are
 reported beside every rate so attrition remains visible.
+
+## Observation log
+
+### 2026-10-01: acts-project/covfie at 98eb03b (Linux x86-64 container, 2 vCPU)
+
+- Funnel: source acquired, clean Release configure and build succeeded, configured ctest passed
+  146/146, then the configured benchmark failed and the run stopped with status `failed`. The
+  bundle validates (`perfpilot validate-bundle`).
+- Cause, found by hand after the run: `benchmarks/cpu/patterns/random.hpp` declares
+  `std::array<std::string_view, 2> parameter_names = {"N"}` for both random patterns while
+  `get_parameter_ranges()` returns one range. Google Benchmark 1.8.3 checks that `ArgNames` and
+  `ArgsProduct` agree, so every `benchmark_cpu` invocation aborts during registration, whatever the
+  filter. The declaration dates from commit 2007881 (2022). Changing the array size to 1 makes the
+  binary list about 4,200 cases.
+- What this does and does not show: the pipeline correctly stopped on an unreproducible benchmark
+  instead of measuring nothing. It is not a performance result, and no candidate was generated.
