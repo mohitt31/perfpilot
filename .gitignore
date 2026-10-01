@@ -1,0 +1,29 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+.DS_Store
+
+.mypy_cache/
+.ruff_cache/
+
+# local runs and artifacts
+work/
+outputs/
+cmake-build-*/
+_build/
+
+# secrets
+.env
+.env.*
+*.pem
+*.key
+
+# held out of the public repo
+docs/FOUNDER_MATERIAL.md
+perfbench/private/
