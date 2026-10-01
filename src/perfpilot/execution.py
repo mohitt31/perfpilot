@@ -204,16 +204,21 @@ def build_docker_argv(
     workspace_root: Path,
     cwd: Path,
     argv: Sequence[str],
+    *,
+    host_ids: tuple[int, int] | None = None,
 ) -> tuple[str, ...]:
-    """Construct the hardened Docker invocation used by the Linux backend."""
+    """Construct the hardened Docker invocation used by the Linux backend.
+
+    ``host_ids`` overrides the (uid, gid) pair; it exists so the non-root rule
+    can be tested independently of the account running the test suite.
+    """
     root = workspace_root.resolve(strict=True)
     resolved_cwd = cwd.resolve(strict=True)
     if not resolved_cwd.is_relative_to(root):
         raise ExecutionError("Docker working directory escapes the run workspace")
     if not argv:
         raise ExecutionError("command argv cannot be empty")
-    uid = os.getuid()
-    gid = os.getgid()
+    uid, gid = host_ids if host_ids is not None else (os.getuid(), os.getgid())
     if uid == 0:
         raise ExecutionError("Docker runner must be launched by a non-root host account")
     image = f"{policy.image_reference}@sha256:{policy.image_digest}"

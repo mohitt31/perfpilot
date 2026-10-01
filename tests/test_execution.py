@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 import pytest
@@ -25,7 +24,9 @@ def _policy() -> DockerSandboxPolicy:
 def test_docker_invocation_enforces_phase_one_controls(tmp_path: Path) -> None:
     source = tmp_path / "source"
     source.mkdir()
-    argv = build_docker_argv(_policy(), tmp_path, source, ("cmake", "--build", "build"))
+    argv = build_docker_argv(
+        _policy(), tmp_path, source, ("cmake", "--build", "build"), host_ids=(1000, 1000)
+    )
     assert argv[:3] == ("docker", "run", "--rm")
     for required in (
         "--read-only",
@@ -39,9 +40,16 @@ def test_docker_invocation_enforces_phase_one_controls(tmp_path: Path) -> None:
     ):
         assert required in argv
     assert argv[argv.index("--network") + 1] == "none"
-    assert argv[argv.index("--user") + 1] == f"{os.getuid()}:{os.getgid()}"
+    assert argv[argv.index("--user") + 1] == "1000:1000"
     assert argv[-3:] == ("cmake", "--build", "build")
     assert argv[-4] == "ghcr.io/example/perfpilot-runner@sha256:" + "a" * 64
+
+
+def test_docker_invocation_rejects_root_host_account(tmp_path: Path) -> None:
+    source = tmp_path / "source"
+    source.mkdir()
+    with pytest.raises(ExecutionError, match="non-root"):
+        build_docker_argv(_policy(), tmp_path, source, ("true",), host_ids=(0, 0))
 
 
 def test_docker_invocation_rejects_escaping_working_directory(tmp_path: Path) -> None:
