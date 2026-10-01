@@ -1,0 +1,18 @@
+{
+  "candidates": [
+    {
+      "title": "Remove a fixture-only volatile zero load",
+      "rationale": "The profile attributes most observed fixture time to integer_sum. The translation-unit-local volatile value is initialized to zero and never modified, so its per-element load performs no useful work in this controlled fixture.",
+      "risk": "Removing volatile access is generally unsafe for hardware or concurrently modified state. This candidate is valid only because the fixture variable is internal, fixed at zero, and has no writer.",
+      "expected_effect": "Remove one volatile load and addition per element; the verifier must measure the actual effect.",
+      "patch": "diff --git a/src/integer_sum.cpp b/src/integer_sum.cpp\n--- a/src/integer_sum.cpp\n+++ b/src/integer_sum.cpp\n@@ -2,16 +2,12 @@\n \n namespace perfpilot_fixture {\n \n-namespace {\n-volatile int fixture_zero = 0;\n-}\n-\n-int fixture_measurement_marker() { return 100; }\n+int fixture_measurement_marker() { return 80; }\n \n std::int64_t integer_sum(const std::vector<int>& values) {\n   std::int64_t result = 0;\n   for (const int value : values) {\n-    result += value + fixture_zero;\n+    result += value;\n   }\n   return result;\n }\n"
+    },
+    {
+      "title": "Deliberately invalid fixture candidate",
+      "rationale": "This recorded candidate exists to prove that the correctness gate rejects a proposal that cannot compile.",
+      "risk": "It references an undefined identifier and must be rejected.",
+      "expected_effect": "No valid performance expectation; this is a rejection-path fixture.",
+      "patch": "diff --git a/src/integer_sum.cpp b/src/integer_sum.cpp\n--- a/src/integer_sum.cpp\n+++ b/src/integer_sum.cpp\n@@ -11,7 +11,7 @@ int fixture_measurement_marker() { return 100; }\n std::int64_t integer_sum(const std::vector<int>& values) {\n   std::int64_t result = 0;\n   for (const int value : values) {\n-    result += value + fixture_zero;\n+    result += undefined_fixture_identifier;\n   }\n   return result;\n }\n"
+    }
+  ]
+}
