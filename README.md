@@ -61,3 +61,31 @@ perfpilot compare-runs FIRST_BUNDLE SECOND_BUNDLE -o comparison.json
 Start with [docs/SCOPE.md](docs/SCOPE.md), [docs/DESIGN.md](docs/DESIGN.md), and
 [docs/METRICS.md](docs/METRICS.md). No Phase 1 product outcome or design-partner result has yet been
 measured.
+
+## How this was built
+
+PerfPilot was built with AI coding assistance. Mohit designed the product scope, evidence standard,
+and statistical protocol, and reviewed every claim. AI-generated changes and proposals are treated
+as untrusted until they have been inspected and supported by recorded evidence.
+
+What has actually been run and observed:
+
+- The end-to-end evidence workflow ran on a controlled C++/CMake fixture on macOS.
+- Local ingestion, baseline checks, JSON benchmark capture, correctness gates, statistics, reporting,
+  and the recorded-response proposal path were exercised in tests or fixture runs.
+- Instrumented JSON profiling was validated end to end on macOS. The macOS `sample` backend received
+  a smoke test, but it did not produce a useful call graph.
+- Docker Desktop pulled the pinned Linux image, but both attempted containers hung before appearing
+  in `docker ps`; this is not counted as a Docker or Linux execution result.
+
+What has not yet been run or demonstrated:
+
+- The Linux `perf` backend has not run on a native Linux host.
+- The OpenAI Responses adapter has not made a live request.
+- None of the eight blinded PerfBench cases has been run.
+- There has been no invited design-partner run or second-machine product reproduction.
+- PerfPilot has not yet demonstrated a useful optimization in an unseen real repository or earned a
+  maintainer's approval.
+
+Tests and controlled fixtures are engineering validation, not product results. The detailed,
+claim-by-claim boundary is recorded in [docs/PHASE1_REVIEW.md](docs/PHASE1_REVIEW.md).
